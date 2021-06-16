@@ -1,9 +1,12 @@
 package invoiceservice;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class InvoiceServiceTest {
+
+    @DisplayName("this is test case to check total fare when given Distance and time")
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator();

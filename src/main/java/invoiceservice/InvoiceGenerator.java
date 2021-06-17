@@ -1,43 +1,54 @@
 package invoiceservice;
 
+import java.util.Arrays;
+
 public class InvoiceGenerator {
+
+    public enum RideType {
+        NORMAL, PREMIUM
+    }
 
     /**
      * declaration of the constants
      */
-    private static final double MINIMUM_COST_PER_KILOMETER = 10;
-    private static final int COST_PER_TIME = 1;
-    private static final int MINIMUM_FARE = 5;
+    private static final double MIN_COST_PER_KM_NORMAL_RIDE = 10;
+    private static final int COST_PER_TIME_NORMAL_RIDE = 1;
+    private static final double MIN_FARE_NORMAL_RIDE = 5;
 
-    private RideRepository rideRepository;
+    private static final double MIN_COST_PER_KM_PREMIUM_RIDE = 15;
+    private static final int COST_PER_TIME_PREMIUM_RIDE = 2;
+    private static final double MIN_FARE_PREMIUM_RIDE = 20;
+
+
+    private final RideRepository rideRepository;
 
     public InvoiceGenerator() {
         this.rideRepository = new RideRepository();
     }
 
     /**
-     * this is the method to calculate the total fare for single ride when given distance and time;
+     * Method to calculate fare for single ride.
      * @param distance;
      * @param time;
-     * @return double;
+     * @param rideType;
+     * @return fare;
      */
-    public double calculateFare(double distance, int time) {
-        double totalFare = distance*MINIMUM_COST_PER_KILOMETER+time*COST_PER_TIME;
-        return Math.max(totalFare, MINIMUM_FARE);
+    public double calculateFare(double distance, int time, RideType rideType) {
+        return this.calculateBasedOnRideType(distance, time, rideType);
     }
 
     /**
-     * this is the method to calculate total fare for multiple rides.
-     * @param rides ;
-     * @return double;
+     * Method to calculate total fare for multiple rides.
+     * @param rides;
+     * @return invoice summary;
      */
     public InvoiceSummary calculateFare(Ride[] rides) {
-        double totalFare = 0;
-        for (Ride ride:rides) {
-            totalFare += this.calculateFare(ride.getDistance(), ride.getTime());
-        }
+        double totalFare = Arrays.stream(rides)
+                .mapToDouble(ride -> this.calculateFare(ride.getDistance(), ride.getTime(), ride.getRideType()))
+                .sum();
         return new InvoiceSummary(rides.length, totalFare);
     }
+
 
     /**
      * to add ride by user id
@@ -55,6 +66,22 @@ public class InvoiceGenerator {
      */
     public InvoiceSummary getInvoiceSummary(String userId) {
         return this.calculateFare(rideRepository.getRides(userId));
+    }
+
+    /**
+     * Method to choose ride and return fare
+     * @param distance;
+     * @param time;
+     * @param rideType;
+     * @return total fare;
+     */
+    public double calculateBasedOnRideType(double distance, int time, RideType rideType) {
+        return switch (rideType) {
+            case PREMIUM -> Math.max(distance * MIN_COST_PER_KM_PREMIUM_RIDE + time * COST_PER_TIME_PREMIUM_RIDE,
+                    MIN_FARE_PREMIUM_RIDE);
+            case NORMAL -> Math.max(distance * MIN_COST_PER_KM_NORMAL_RIDE + time * COST_PER_TIME_NORMAL_RIDE,
+                    MIN_FARE_NORMAL_RIDE);
+        };
     }
 }
 

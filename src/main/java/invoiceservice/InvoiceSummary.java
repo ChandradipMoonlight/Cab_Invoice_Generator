@@ -24,8 +24,7 @@ public class InvoiceSummary {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof InvoiceSummary)) return false;
-        InvoiceSummary that = (InvoiceSummary) o;
+        if (!(o instanceof InvoiceSummary that)) return false;
         return numOfRides == that.numOfRides && Double.compare(that.totalFare, totalFare) == 0 && Double.compare(that.avgFare, avgFare) == 0;
     }
 }

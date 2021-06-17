@@ -1,8 +1,13 @@
+invoiceservice/RideRepository.java
+ invoiceservice.RideRepository
+invoiceservice/InvoiceException.java
+ invoiceservice.InvoiceException
+ invoiceservice.InvoiceException$ExceptionType
+invoiceservice/InvoiceGenerator.java
+ invoiceservice.InvoiceGenerator
+ invoiceservice.InvoiceGenerator$1
+ invoiceservice.InvoiceGenerator$RideType
 invoiceservice/Ride.java
  invoiceservice.Ride
 invoiceservice/InvoiceSummary.java
  invoiceservice.InvoiceSummary
-invoiceservice/RideRepository.java
- invoiceservice.RideRepository
-invoiceservice/InvoiceGenerator.java
- invoiceservice.InvoiceGenerator

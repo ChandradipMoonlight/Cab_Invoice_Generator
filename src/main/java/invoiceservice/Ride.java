@@ -8,15 +8,17 @@ public class Ride {
 
     private int time;
     private double distance;
+    private InvoiceGenerator.RideType rideType;
 
     /**
      * this is the constructor of class Ride to initialize the parameter;
      * @param distance;
      * @param time;
      */
-    public Ride(double distance, int time) {
+    public Ride(double distance, int time, InvoiceGenerator.RideType rideType) {
         this.distance = distance;
         this.time = time;
+        this.rideType = rideType;
     }
 
     /**
@@ -36,5 +38,13 @@ public class Ride {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public InvoiceGenerator.RideType getRideType() {
+        return rideType;
+    }
+
+    public void setRideType(InvoiceGenerator.RideType rideType) {
+        this.rideType = rideType;
     }
 }

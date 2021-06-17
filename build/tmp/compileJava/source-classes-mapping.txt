@@ -1,6 +1,8 @@
 invoiceservice/Ride.java
  invoiceservice.Ride
-invoiceservice/InvoiceGenerator.java
- invoiceservice.InvoiceGenerator
 invoiceservice/InvoiceSummary.java
  invoiceservice.InvoiceSummary
+invoiceservice/RideRepository.java
+ invoiceservice.RideRepository
+invoiceservice/InvoiceGenerator.java
+ invoiceservice.InvoiceGenerator

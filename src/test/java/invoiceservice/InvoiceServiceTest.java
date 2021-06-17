@@ -29,7 +29,7 @@ public class InvoiceServiceTest {
         double distance = 0.1;
         int time = 1;
         double fare = invoiceGenerator.calculateFare(distance, time);
-        Assertions.assertEquals(5, fare);
+        Assertions.assertEquals(5, fare, 0.0);
     }
 
     @DisplayName("this is the test case to check total fare for multiple rides")
@@ -38,7 +38,8 @@ public class InvoiceServiceTest {
         Ride[] rides = { new Ride(2.0, 5),
                          new Ride(0.1, 1)
                         };
-        double fare = invoiceGenerator.calculateFare(rides);
-        Assertions.assertEquals(30, fare, 0.0);
+        InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        Assertions.assertEquals(expectedInvoiceSummary, summary);
     }
 }

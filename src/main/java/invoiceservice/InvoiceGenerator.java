@@ -22,15 +22,15 @@ public class InvoiceGenerator {
 
     /**
      * this is the method to calculate total fare for multiple rides.
-     * @param rides;
+     * @param rides ;
      * @return double;
      */
-    public double calculateFare(Ride[] rides) {
+    public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
         for (Ride ride:rides) {
             totalFare += this.calculateFare(ride.getDistance(), ride.getTime());
         }
-        return totalFare;
+        return new InvoiceSummary(rides.length, totalFare);
     }
 }
 
